@@ -9,16 +9,16 @@ const SORT_BY_SPEED = 'SORT_BY_SPEED';
 const OPTIMAL_SORT = 'OPTIMAL_SORT';
 const defaultStackTickets = 5;
 
-function App() {
+const App = () => {
   const [tickets, setTickets] = useState([]);
   const [reconciledTickets, setReconciledTickets] = useState([]);
-  const [topFilter, setTopFilter] = useState('');
-  const [sideFilter, setSideFilter] = useState({
-    none_transfer: {checked: true, filter: 0, description: 'Без пересадок'},
-    one_transfer: {checked: true, filter: 1, description: '1 пересадка'},
-    two_transfer: {checked: true, filter: 2, description: '2 пересадки'},
-    three_transfer: {checked: true, filter: 3, description: '3 пересадки'},
-  });
+  const [topFilter, setTopFilter] = useState(null);
+  const [sideFilter, setSideFilter] = useState([
+    {name: 'none_transfer', checked: true, id: 0, description: 'Без пересадок'},
+    {name: 'one_transfer', checked: true, id: 1, description: '1 пересадка'},
+    {name: 'two_transfer', checked: true, id: 2, description: '2 пересадки'},
+    {name: 'three_transfer', checked: true, id: 3, description: '3 пересадки'},
+  ]);
   const [count, setCount] = useState(defaultStackTickets);
 
   useEffect(() => {
@@ -48,14 +48,23 @@ function App() {
 
   const handlerSideFilter = (event) => {
     const { target } = event;
-    const checkboxName = target.value;
-    const value = target.checked ;
-    setSideFilter( f => ({ ...f, [checkboxName]: {...f[checkboxName], checked: value} }));
+    const idx = parseInt(target.id);
+    setSideFilter(filters => { 
+      return filters.map((filter) => idx === filter.id ? { ...filter, checked: !filter.checked } : filter )
+    });
+  };
+
+  const allChecked = sideFilter.every(({ checked }) => checked);
+
+  const handlerSideFilterAll = () => {
+    setSideFilter(filters=> {
+      return filters.map((filter) => ({...filter, checked: !allChecked}))
+    })
   };
 
   const filterOutTickets = () => {
-    const transfers = Object.values(sideFilter).reduce((acc, {checked, filter}) => {
-      if (checked === true) acc.push(filter)
+    const transfers = sideFilter.reduce((acc, {checked, id}) => {
+      if (checked === true) acc.push(id)
       return acc;  
     }, []);
     console.log('transfers =',transfers)
@@ -138,14 +147,14 @@ const getTimeArrival = (dataTime, minutes) => {
         <div className='main'>
             <div className='side_group-filters col-12 col-md-3 position-sticky sticky-top d-flex flex-column'>
             <div className='side_group-filters_header'> количество пересадок </div>
-            <div className="side_group-filters-item d-flex">      
-				      <input type="checkbox" id="all_transfer" name="transferQt" value="all" onChange={handlerSideFilter} checked={sideFilter['all']}/>
+            <div className="side_group-filters-item d-flex">
+				      <input type="checkbox" id="all_transfer" name="transferQt" value="all_transfer" onChange={handlerSideFilterAll} checked={allChecked}/>
               <label htmlFor="all_transfer" className="label">Все</label>
              </div>
-             {Object.entries(sideFilter)
-              .map(([nameFilter, {description}], index) => <div className="side_group-filters-item" key={index}>
-                 <input type="checkbox" id={nameFilter} name="transferQt" value={nameFilter} onChange={handlerSideFilter} checked={sideFilter[nameFilter]['checked']}/>
-                 <label htmlFor={nameFilter} className="label">{description}</label>
+             {sideFilter
+              .map(({name, description, id, checked}, index) => <div className="side_group-filters-item" key={index}>
+                 <input type="checkbox" id={id} name="transferQt" value={name} onChange={handlerSideFilter} checked={checked}/>
+                 <label htmlFor={id} className="label">{description}</label>
                 </div>
               )}
             </div>
