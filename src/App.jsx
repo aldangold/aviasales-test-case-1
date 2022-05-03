@@ -18,10 +18,10 @@ const App = () => {
     ],
   });
   const [sideFilter, setSideFilter] = useState([
-    {name: 'none_transfer', checked: true, id: 0, description: 'Без пересадок'},
-    {name: 'one_transfer', checked: true, id: 1, description: '1 пересадка'},
-    {name: 'two_transfer', checked: true, id: 2, description: '2 пересадки'},
-    {name: 'three_transfer', checked: true, id: 3, description: '3 пересадки'},
+    {id: 0, name: 'none_transfer', checked: true, description: 'Без пересадок'},
+    {id: 1, name: 'one_transfer', checked: true, description: '1 пересадка'},
+    {id: 2, name: 'two_transfer', checked: true, description: '2 пересадки'},
+    {id: 3, name: 'three_transfer', checked: true, description: '3 пересадки'},
   ]);
   const [count, setCount] = useState(defaultStackTickets);
 
