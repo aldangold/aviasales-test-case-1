@@ -1,3 +1,14 @@
+:root {
+  background-color: #F3F7FA;
+  --form-control-color: rebeccapurple;
+  --form-control-disabled: #959495;
+  --black: #363839;
+  --lightgray: #9c9e9f;
+  --gray: #bdc1c6;
+  --white: #fff;
+  --green: #06842c;
+}
+
 @font-face {
   font-weight: 400; 
   font-family: "Open Sans";
@@ -16,24 +27,12 @@
   font-weight: 600;
 }
 
-:root {
-  background-color: #F3F7FA;
-  --form-control-color: rebeccapurple;
-  --form-control-disabled: #959495;
-  --black: #363839;
-  --lightgray: #9c9e9f;
-  --gray: #bdc1c6;
-  --white: #fff;
-  --green: #06842c;
-}
 
 *,
 *:before,
 *:after {
   box-sizing: border-box;
 }
-
-
 
 .unselectable {
   -webkit-touch-callout: none; /* iOS Safari */
@@ -45,10 +44,14 @@
 }
 
 .App {
-  /* text-align: center; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.header {
+  text-align: center;
+  width: 100%;
 }
 
 .main {
@@ -132,8 +135,6 @@
 
 .flex-item {
   display: flex;
-  /* justify-content: center;
-  align-items: center; */
   width: 50%;
 }
 
@@ -258,11 +259,6 @@
 .carrier {
   align-self: flex-start;
   flex-direction: row-reverse;
-}
-
-.logo {
-  text-align: center;
-  width: 100%;
 }
 
 

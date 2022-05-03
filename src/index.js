@@ -1,14 +1,12 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import 'regenerator-runtime';
 import './css/style.css';
+import init from './init.jsx';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const app = async () => {
+  const vdom = await init();
+  const tickets = document.getElementById('root');
+  ReactDOM.render(vdom, root);
+};
 
-reportWebVitals();
+app();
