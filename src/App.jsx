@@ -4,15 +4,19 @@ import ticketsInFile from './tickets.json' ;
 import axios from 'axios';
 
 
-const SORT_BY_PRICE = 'SORT_BY_PRICE';
-const SORT_BY_SPEED = 'SORT_BY_SPEED';
-const OPTIMAL_SORT = 'OPTIMAL_SORT';
-const defaultStackTickets = 5;
-
 const App = () => {
+  const defaultStackTickets = 5;
+
   const [tickets, setTickets] = useState([]);
   const [reconciledTickets, setReconciledTickets] = useState([]);
-  const [topFilter, setTopFilter] = useState(SORT_BY_PRICE);
+  const [topFilter, setTopFilter] = useState({
+    currentFilter: 'sort_by_price',
+    filters: [
+      {id: 1, name: 'sort_by_price', description: 'Самый дешевый'},
+      {id: 2, name: 'sort_by_speed', description: 'Самый быстрый'},
+      {id: 3, name: 'optimal_sort', description: 'Оптимальный'}
+    ],
+  });
   const [sideFilter, setSideFilter] = useState([
     {name: 'none_transfer', checked: true, id: 0, description: 'Без пересадок'},
     {name: 'one_transfer', checked: true, id: 1, description: '1 пересадка'},
@@ -50,16 +54,17 @@ const App = () => {
 
   const handleTopFilter = (event) => {
     const { target } = event;
-    const currentFilter = target.value;
+    const value = target.value;
+    console.log(value)
     setCount(defaultStackTickets);
-    setTopFilter(currentFilter);
+    setTopFilter(f => ({...f, currentFilter: value}));
   }
 
   const handlerSideFilter = (event) => {
     const { target } = event;
-    const idx = parseInt(target.id);
+    const idx = target.id;
     setSideFilter(filters => { 
-      return filters.map((filter) => idx === filter.id ? { ...filter, checked: !filter.checked } : filter )
+      return filters.map((filter) => idx === filter.name ? { ...filter, checked: !filter.checked } : filter )
     });
   };
 
@@ -97,14 +102,14 @@ const App = () => {
   },[topFilter, reconciledTickets.length]);
 
   const sortOutTickets = () => {
-    switch (topFilter) {
-      case SORT_BY_PRICE: {
+    switch (topFilter.currentFilter) {
+      case 'sort_by_price': {
         const sortedTickets = reconciledTickets.sort((a, b) => a.price - b.price);
         setReconciledTickets([...sortedTickets]);
       }
       break;
 
-      case SORT_BY_SPEED: {
+      case 'sort_by_speed': {
         const sortedTickets = reconciledTickets.sort((a, b) => {
           const add = (a, b) => a + b;
           const minADuration = add(...a.segments.map(({ duration }) => duration));
@@ -115,7 +120,7 @@ const App = () => {
       }
       break;
 
-      case OPTIMAL_SORT: {
+      case 'optimal_sort': {
         const add = (a, b) => a + b;
         const allPrice = reconciledTickets.reduce((acc, ticket) => acc + ticket.price, 0);
         const allDuration = reconciledTickets.reduce((acc, ticket) => acc + add(...ticket.segments.map(({ duration }) => duration)), 0);
@@ -161,26 +166,20 @@ const getTimeArrival = (dataTime, minutes) => {
               <label htmlFor="all_transfer">Все</label>
              </div>
              {sideFilter
-              .map(({name, description, id, checked}, index) => <div className="side_group-filters-item d-flex" key={index}>
-                 <input type="checkbox" id={id} name={id} value={id} onChange={handlerSideFilter} checked={checked}/>
-                 <label htmlFor={id}>{description}</label>
+              .map(({ name, description, checked }, index) => <div className="side_group-filters-item d-flex" key={index}>
+                 <input type="checkbox" id={name} name={name} value={name} onChange={handlerSideFilter} checked={checked}/>
+                 <label htmlFor={name}>{description}</label>
                 </div>
               )}
             </div>
             <div className='result col-12 col-md-9 flex-column'>
               <div className='top_group-filters'>
-                <div className='top_group-filters-item'>
-                  <input id="btn-sort_by_price" className='btn-check' onChange={handleTopFilter} type="radio" name="topFilter" value={SORT_BY_PRICE} checked={topFilter === SORT_BY_PRICE}/>
-                  <label htmlFor='btn-sort_by_price' className='unselectable'>самый дешевый</label>
-                </div>
-              <div className='top_group-filters-item'>
-                <input id='btn-sort_by_speed' className='btn-check' onChange={handleTopFilter} type="radio" name="topFilter" value={SORT_BY_SPEED} checked={topFilter === SORT_BY_SPEED}/>
-                <label htmlFor='btn-sort_by_speed' className='unselectable'>самый быстрый</label>
-              </div>
-              <div className='top_group-filters-item'>
-                <input id='btn-optimal_sort' className='btn-check' onChange={handleTopFilter} type="radio" name="topFilter" value={OPTIMAL_SORT} checked={topFilter === OPTIMAL_SORT}/>
-                <label htmlFor='btn-optimal_sort' className='unselectable'>оптимальный</label>
-              </div>
+                {topFilter.filters
+                .map(({ name, description }, index) => <div className='top_group-filters-item' key={index}>
+                    <input id={name} className='btn-check' onChange={handleTopFilter} type="radio" name={name} value={name} checked={topFilter.currentFilter === name}/>
+                    <label htmlFor={name} className='unselectable'>{description}</label>
+                  </div>
+                  )}
               </div>
               <div className='tickets_list flex-column'>
                 {reconciledTickets
