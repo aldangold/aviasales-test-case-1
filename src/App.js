@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import logo from './logo.png';
-import './App.css';
+import './css/style.css';
 import ticketsInFile from './tickets.json' ;
+import axios from 'axios';
 
 
 const SORT_BY_PRICE = 'SORT_BY_PRICE';
@@ -12,7 +13,7 @@ const defaultStackTickets = 5;
 const App = () => {
   const [tickets, setTickets] = useState([]);
   const [reconciledTickets, setReconciledTickets] = useState([]);
-  const [topFilter, setTopFilter] = useState(null);
+  const [topFilter, setTopFilter] = useState(SORT_BY_PRICE);
   const [sideFilter, setSideFilter] = useState([
     {name: 'none_transfer', checked: true, id: 0, description: 'Без пересадок'},
     {name: 'one_transfer', checked: true, id: 1, description: '1 пересадка'},
@@ -23,17 +24,26 @@ const App = () => {
 
   useEffect(() => {
     const makeRequest = async () => {
-    // const makeRequest = () => {
-      // const getId = await fetch('https://front-test.beta.aviasales.ru/search');
-      // const searchIdData = await getId.json();
-      // const { searchId } = searchIdData;
-      
-      // const getTickets = await fetch(`https://front-test.beta.aviasales.ru/tickets?searchId=${searchId}`);
-      // const ticketsData = await getTickets.json();
-      const ticketsData = await ticketsInFile;
-      const { tickets } = ticketsData;
-      setTickets(tickets);
-      setReconciledTickets(tickets);
+      try {
+        const getId = await axios.get('https://front-test.beta.aviasales.ru/search');
+        const searchIdData = await getId.json();
+        const { searchId } = searchIdData;
+        
+        const getTickets = await axios.get(`https://front-test.beta.aviasales.ru/tickets?searchId=${searchId}`);
+        const ticketsData = await getTickets.json();
+        const { tickets } = ticketsData;
+        setTickets(tickets);
+        setReconciledTickets(tickets);
+        
+      } catch (error) {
+        if (error.name === 'AxiosError') {
+          alert('front-test.beta.aviasales.ru недоступен, билеты будут загружены из фикстур');
+          const ticketsData = await ticketsInFile;
+          const { tickets } = ticketsData;
+          setTickets(tickets);
+          setReconciledTickets(tickets);
+        }
+      }
     }
     makeRequest();
 
@@ -67,7 +77,7 @@ const App = () => {
       if (checked === true) acc.push(id)
       return acc;  
     }, []);
-    console.log('transfers =',transfers)
+
     const filterByTransfers = (keys) => {
       const filteredTickets = tickets.filter((ticket) => {
         return ticket.segments.reduce((flag, segment) => (flag && keys.includes(segment.stops.length)), true);
@@ -85,7 +95,7 @@ const App = () => {
 
   useEffect(() => {
     sortOutTickets();
-  },[topFilter]);
+  },[topFilter, reconciledTickets.length]);
 
   const sortOutTickets = () => {
     switch (topFilter) {
@@ -148,13 +158,13 @@ const getTimeArrival = (dataTime, minutes) => {
             <div className='side_group-filters col-12 col-md-3 position-sticky sticky-top d-flex flex-column'>
             <div className='side_group-filters_header'> количество пересадок </div>
             <div className="side_group-filters-item d-flex">
-				      <input type="checkbox" id="all_transfer" name="transferQt" value="all_transfer" onChange={handlerSideFilterAll} checked={allChecked}/>
-              <label htmlFor="all_transfer" className="label">Все</label>
+				      <input type="checkbox" id="all_transfer" name="all_transfer" value="all_transfer" onChange={handlerSideFilterAll} checked={allChecked}/>
+              <label htmlFor="all_transfer">Все</label>
              </div>
              {sideFilter
-              .map(({name, description, id, checked}, index) => <div className="side_group-filters-item" key={index}>
-                 <input type="checkbox" id={id} name="transferQt" value={name} onChange={handlerSideFilter} checked={checked}/>
-                 <label htmlFor={id} className="label">{description}</label>
+              .map(({name, description, id, checked}, index) => <div className="side_group-filters-item d-flex" key={index}>
+                 <input type="checkbox" id={id} name={id} value={id} onChange={handlerSideFilter} checked={checked}/>
+                 <label htmlFor={id}>{description}</label>
                 </div>
               )}
             </div>
@@ -162,15 +172,15 @@ const getTimeArrival = (dataTime, minutes) => {
               <div className='top_group-filters'>
                 <div className='top_group-filters-item'>
                   <input id="btn-sort_by_price" className='btn-check' onChange={handleTopFilter} type="radio" name="topFilter" value={SORT_BY_PRICE} checked={topFilter === SORT_BY_PRICE}/>
-                  <label htmlFor='btn-sort_by_price'>самый дешевый</label>
+                  <label htmlFor='btn-sort_by_price' className='unselectable'>самый дешевый</label>
                 </div>
               <div className='top_group-filters-item'>
                 <input id='btn-sort_by_speed' className='btn-check' onChange={handleTopFilter} type="radio" name="topFilter" value={SORT_BY_SPEED} checked={topFilter === SORT_BY_SPEED}/>
-                <label htmlFor='btn-sort_by_speed'>самый быстрый</label>
+                <label htmlFor='btn-sort_by_speed' className='unselectable'>самый быстрый</label>
               </div>
               <div className='top_group-filters-item'>
                 <input id='btn-optimal_sort' className='btn-check' onChange={handleTopFilter} type="radio" name="topFilter" value={OPTIMAL_SORT} checked={topFilter === OPTIMAL_SORT}/>
-                <label htmlFor='btn-optimal_sort'>оптимальный</label>
+                <label htmlFor='btn-optimal_sort' className='unselectable'>оптимальный</label>
               </div>
               </div>
               <div className='tickets_list flex-column'>
@@ -199,7 +209,7 @@ const getTimeArrival = (dataTime, minutes) => {
                     </div>
                   </div>)}
                   <div className='show-more-tickets'>
-                  <button className='show-more-tickets_button' onClick={() => setCount(count + defaultStackTickets)}>показать еще 5 билетов!</button>
+                  <button className='show-more-tickets_button' onClick={(e) => e.target.blur() & setCount(count + defaultStackTickets)}>показать еще 5 билетов!</button>
                   </div>
                 </div>
             </div>
