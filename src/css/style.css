@@ -156,9 +156,9 @@
   justify-content: center;
 }
 
-/* .show-more-tickets {
-  text-align: center;
-} */
+.show-more-tickets {
+  margin-top: 10px;
+}
 
 .show-more-tickets_button {
   appearance: none;

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import logo from './logo.png';
-import './css/style.css';
 import ticketsInFile from './tickets.json' ;
 import axios from 'axios';
 
