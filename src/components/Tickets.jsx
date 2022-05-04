@@ -69,7 +69,7 @@ const Tickets = () => {
     {reconciledTickets
         .slice(0, ticketsStack)
         .map((ticket, index) => <div className='ticket col-md-9' key={index}>
-        <div className='flex-item flex-grow-1 price'>{ticket.price} Р</div>
+        <div className='flex-item flex-grow-1 price'>{(ticket.price).toLocaleString('ru')} Р</div>
         <div className='flex-item  flex-grow-1 carrier'><img src={`//pics.avs.io/99/36/${ticket.carrier}.png`}></img></div>
         <div className='destination'>
             {ticket.segments.map((segment, index) => <div className='route' key={index}>
