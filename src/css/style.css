@@ -337,9 +337,16 @@ input[type=checkbox]:checked ~ label::before {
   padding: 0 10px 0;
   user-select: none;
 }
-/* label::before {
-  position: absolute;
-  content: attr(data-content);
-  color: #9c9e9f;
-  clip-path: polygon(0 0, 0 0, 0% 100%, 0 100%);
-} */
+
+.svgLoader {
+  animation: spin 0.5s linear infinite;
+  margin: auto;
+}
+.divLoader {
+  height: 50vh;
+  display: flex;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
