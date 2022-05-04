@@ -20,6 +20,9 @@ export default {
         transfersCount_few: '{{count}} пересадки',
         transfersCount_many: '{{count}} пересадок',
       },
-      showMoreTicketsButton: 'Показать еще 5 билетов!'
+      showMoreTicketsButton: 'Показать еще 5 билетов!',
+      errors:{
+        network: 'front-test.beta.aviasales.ru недоступен, билеты загружены локально',
+      },
     },
   };

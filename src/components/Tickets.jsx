@@ -1,15 +1,16 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector, batch } from 'react-redux';
 import axios from 'axios';
-import ticketsInFile from '../tickets.json';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
+import { useDispatch, useSelector, batch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import LoadingPage from './LoadingPage';
+import ticketsInFile from '../tickets.json';
 import { actions as ticketsActions } from '../slices/ticketsSlice.js';
 
 const Tickets = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-
+  const notify = () => toast.error(t('errors.network'));
   const { ticketsStack, reconciledTickets } = useSelector((state) => state.ticketsReducer);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const Tickets = () => {
         });
       } catch (error) {
         if (error.name === 'AxiosError') {
-          alert('front-test.beta.aviasales.ru недоступен, билеты будут загружены из фикстур');
+          notify();
           const { tickets } = await ticketsInFile;
           batch(() => {
             dispatch(ticketsActions.setTickets(tickets));
