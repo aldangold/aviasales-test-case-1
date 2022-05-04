@@ -1,25 +1,27 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ticketsInFile from '../tickets.json';
+import { useTranslation } from 'react-i18next';
 
 const Tickets = () => {
   const defaultStackTickets = 5;
+  const { t } = useTranslation();
 
   const [tickets, setTickets] = useState([]);
   const [reconciledTickets, setReconciledTickets] = useState([]);
   const [topFilter, setTopFilter] = useState({
     currentFilter: 'sort_by_price',
     filters: [
-      { id: 1, name: 'sort_by_price', description: 'Самый дешевый' },
-      { id: 2, name: 'sort_by_speed', description: 'Самый быстрый' },
-      { id: 3, name: 'optimal_sort', description: 'Оптимальный' },
+      { id: 1, name: 'sort_by_price', description: t('topFilter.sortByPrice') },
+      { id: 2, name: 'sort_by_speed', description: t('topFilter.sortBySpeed') },
+      { id: 3, name: 'optimal_sort', description: t('topFilter.optimalSort') },
     ],
   });
   const [sideFilter, setSideFilter] = useState([
-    { id: 0, name: 'none_transfer', checked: true, description: 'Без пересадок' },
-    { id: 1, name: 'one_transfer', checked: true, description: '1 пересадка' },
-    { id: 2, name: 'two_transfer', checked: true, description: '2 пересадки' },
-    { id: 3, name: 'three_transfer', checked: true, description: '3 пересадки' },
+    { id: 0, name: 'none_transfer', checked: true, description: t('sideFilter.noneTransfer') },
+    { id: 1, name: 'one_transfer', checked: true, description: t('sideFilter.oneTransfer') },
+    { id: 2, name: 'two_transfer', checked: true, description: t('sideFilter.twoTransfer') },
+    { id: 3, name: 'three_transfer', checked: true, description: t('sideFilter.threeTransfer') },
   ]);
   const [count, setCount] = useState(defaultStackTickets);
 
@@ -152,10 +154,10 @@ const Tickets = () => {
   return (
     <>
       <div className='side_group-filters col-12 col-md-3 position-sticky sticky-top d-flex flex-column'>
-      <div className='side_group-filters_header'> количество пересадок </div>
+      <div className='side_group-filters_header'>{t('sideFilter.title')}</div>
       <div className="side_group-filters-item d-flex">
         <input type="checkbox" id="all_transfer" name="all_transfer" value="all_transfer" onChange={handlerSideFilterAll} checked={allChecked}/>
-        <label htmlFor="all_transfer">Все</label>
+        <label htmlFor="all_transfer">{t('sideFilter.allTransfer')}</label>
       </div>
           {sideFilter
           .map(({ name, description, checked }, index) => <div className="side_group-filters-item d-flex" key={index}>
@@ -185,19 +187,19 @@ const Tickets = () => {
               </div>
               <div className='duration'>
                   {ticket.segments.map((segment, index) => <div className='route' key={index}>
-                  <div className='gr d-flex'>В ПУТИ</div>
+                  <div className='gr d-flex'>{t('ticket.duration')}</div>
                   <div className='bk d-flex'>{segment.duration}</div>
                   </div>)}
               </div>
               <div className='stops'>
                   {ticket.segments.map((segment, index) => <div className='route' key={index}>
-                  <div className='gr d-flex'>{segment.stops.length} пересадки</div>
+                  <div className='gr d-flex'>{t('ticket.transfersCount', { count: segment.stops.length })}</div>
                   <div className='bk d-flex'>{segment.stops.map((stop, index) => <span key={index}> {stop} </span>)}</div>
                   </div>)}
               </div>
               </div>)}
               <div className='show-more-tickets'>
-              <button className='show-more-tickets_button' onClick={(e) => e.target.blur() & setCount(count + defaultStackTickets)}>показать еще 5 билетов!</button>
+              <button className='show-more-tickets_button' onClick={(e) => e.target.blur() & setCount(count + defaultStackTickets)}>{t('showMoreTicketsButton')}</button>
               </div>
           </div>
       </div>
