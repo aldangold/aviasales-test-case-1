@@ -151,6 +151,15 @@ const Tickets = () => {
     return date.setMinutes(date.getMinutes() + minutes);
   };
 
+  const formatTime = (minutes) => {
+    const h = Math.floor(minutes / 60);
+    const m = minutes % 60;
+    const formatH = h > 1 ? `${h}ч` : ''; 
+    const formatM = m > 0 ? `${m}м` : ''; 
+    return `${formatH} ${formatM}`.trim();
+  }
+  
+
   return (
     <>
       <div className='side_group-filters col-12 col-md-3 position-sticky sticky-top d-flex flex-column'>
@@ -188,7 +197,7 @@ const Tickets = () => {
               <div className='duration'>
                   {ticket.segments.map((segment, index) => <div className='route' key={index}>
                   <div className='gr d-flex'>{t('ticket.duration')}</div>
-                  <div className='bk d-flex'>{segment.duration}</div>
+                  <div className='bk d-flex'>{formatTime(segment.duration)}</div>
                   </div>)}
               </div>
               <div className='stops'>
