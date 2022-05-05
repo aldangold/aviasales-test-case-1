@@ -1,4 +1,4 @@
-<h2 align="center"> Aviasales test task </h2>
+<h2 align="center"> Aviasales-test-task </h2>
 
 <div align="center">
     <a href="https://github.com/meloshnikov/aviasales-test-task/actions">
@@ -9,14 +9,14 @@
     </a>
 </div>
 
-## Description
+## :page_facing_up: Description
 
 The main frontend project of our team is a ticketing page with a lot of filters, settings and the tickets themselves.
 The project is written in React, so the test task is close to the daily tasks.
 
 In front of you is a simplified layout of our project - list of tickets, filters and sorting. We also have a small server for the test job, which works similarly to our main backend engine and implements a long polling technique for passing batches of tickets. You need to implement a client, which will receive randomly generated tickets from the server and draw the interface according to the layout in Figma. It will be enough to render the first 5 tickets according to the selected filters and sorting.
 
-## Terms
+## :bookmark_tabs: Terms
 
 - Use React
 - Use TS or JS
@@ -27,7 +27,7 @@ In front of you is a simplified layout of our project - list of tickets, filters
 
 *The original test assignment can be found [here](https://github.com/KosyanMedia/test-tasks/tree/master/aviasales_frontend)*
 
-**Click [here](https://frontend-chat-ru.herokuapp.com/) to try Ticketing page**
+**Click [here](https://rising-sun.vercel.app/) to try Ticketing page**
 
 ## :package: Installation and launch guide
 * Installation
