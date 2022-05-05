@@ -9,7 +9,7 @@
     </a>
 </div>
 
-## :page_facing_up: Description
+## :airplane: Ticketing page - description 
 
 The main frontend project of our team is a ticketing page with a lot of filters, settings and the tickets themselves.
 The project is written in React, so the test task is close to the daily tasks.
