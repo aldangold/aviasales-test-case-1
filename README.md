@@ -11,6 +11,8 @@
 
 ## :airplane: Ticketing page - description 
 
+**Click [here](https://rising-sun.vercel.app/) to try Ticketing page**
+
 The main frontend project of our team is a ticketing page with a lot of filters, settings and the tickets themselves.
 The project is written in React, so the test task is close to the daily tasks.
 
@@ -26,8 +28,6 @@ In front of you is a simplified layout of our project - list of tickets, filters
 - Layout [Figma](https://github.com/KosyanMedia/test-tasks/raw/f0f60244b045928746188a86ba4f76ddb5515111/aviasales_frontend/Aviasales%20Test%20Task.fig)
 
 *The original test assignment can be found [here](https://github.com/KosyanMedia/test-tasks/tree/master/aviasales_frontend)*
-
-**Click [here](https://rising-sun.vercel.app/) to try Ticketing page**
 
 ## :package: Installation and launch guide
 * Installation
