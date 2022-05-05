@@ -9,11 +9,11 @@ plugins:
 
 extends:
   - "airbnb-base"
+  - "eslint:recommended"
   - "plugin:jest/recommended"
   - "plugin:functional/external-recommended"
   - "plugin:functional/recommended"
   - "plugin:react/recommended"
-  - "plugin:react-hooks/recommended"
   - "plugin:testing-library/react"
   - "plugin:jest-dom/recommended"
 
@@ -35,12 +35,15 @@ env:
 # #     version: "16.13"
 
 rules:
+  max-len: 0
+  no-shadow: 0
   import/extensions: 0
   # TODO: cause an error
   import/no-unresolved: 0
   # react/jsx-filename-extension: 0
   react/prop-types: 0
   no-console: 0
+  react/react-in-jsx-scope: off
   functional/no-conditional-statement: 0
   functional/no-expression-statement: 0
   functional/immutable-data: 0
@@ -49,3 +52,9 @@ rules:
   functional/no-throw-statement: 0
   no-underscore-dangle: [2, { "allow": ["__filename", "__dirname"] }]
   testing-library/no-debug: 0
+
+settings: {
+  react: {
+    version: 'detect',
+  },
+}

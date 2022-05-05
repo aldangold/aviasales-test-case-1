@@ -6,8 +6,7 @@ import Tickets from './components/Tickets.jsx';
 import SideBar from './components/SideBar';
 import TopBar from './components/TopBar';
 
-const App = () => {
-  return (
+const App = () => (
     <Container className="App">
       <header className='header'><img src={logo} alt="logo" /></header>
         <Container className='main'>
@@ -19,6 +18,5 @@ const App = () => {
       </Container>
       <ToastContainer/>
     </Container>
-  );
-}
+);
 export default App;

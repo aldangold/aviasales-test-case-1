@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { actions as ticketsActions } from '../slices/ticketsSlice.js';
 import { actions as topFiltersActions } from '../slices/topFiltersSlice.js';
 
-
 const TopBar = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -78,11 +77,10 @@ const TopBar = () => {
     sortOutTickets();
   }, [topFilters, reconciledTickets.length]);
 
-
   return (
     <div className='top_group-filters'>
       {topFilters.filters
-          .map(({ name, description }, index) => <div className='top_group-filters-item' key={index}>
+        .map(({ name, description }, index) => <div className='top_group-filters-item' key={index}>
           <input id={name} className='btn-check' onChange={handleFilter} type="radio" name={name} value={name} checked={topFilters.currentFilter === name}/>
           <label htmlFor={name} className='unselectable'>{t(description)}</label>
           </div>)}

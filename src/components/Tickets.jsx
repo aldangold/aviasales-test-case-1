@@ -42,7 +42,7 @@ const Tickets = () => {
   const handler = (event) => {
     event.target.blur();
     dispatch(ticketsActions.addStackTickets());
-  }
+  };
 
   const getTime = (dataTime) => {
     const date = new Date(dataTime);
@@ -59,21 +59,21 @@ const Tickets = () => {
   const formatTime = (minutes) => {
     const h = Math.floor(minutes / 60);
     const m = minutes % 60;
-    const formatH = h > 1 ? `${h}ч` : ''; 
-    const formatM = m > 0 ? `${m}м` : ''; 
+    const formatH = h > 1 ? `${h}ч` : '';
+    const formatM = m > 0 ? `${m}м` : '';
     return `${formatH} ${formatM}`.trim();
-  }
+  };
 
-  if ( !reconciledTickets.length ) {
-    return <LoadingPage/>
+  if (!reconciledTickets.length) {
+    return <LoadingPage/>;
   }
 
   return (
     <>
       <div className='tickets_list flex-column'>
       {reconciledTickets
-          .slice(0, ticketsStack)
-          .map((ticket, index) => <div className='ticket col-md-9' key={index}>
+        .slice(0, ticketsStack)
+        .map((ticket, index) => <div className='ticket col-md-9' key={index}>
           <div className='flex-item flex-grow-1 price'>{(ticket.price).toLocaleString('ru')} Р</div>
           <div className='flex-item  flex-grow-1 carrier'><img src={`//pics.avs.io/99/36/${ticket.carrier}.png`}></img></div>
           <div className='destination'>

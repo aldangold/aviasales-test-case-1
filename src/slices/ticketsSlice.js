@@ -23,7 +23,7 @@ const ticketsSlice = createSlice({
       state.ticketsStack = defaultStackTickets;
     },
     addStackTickets(state) {
-      state.ticketsStack = state.ticketsStack + defaultStackTickets;
+      state.ticketsStack += defaultStackTickets;
     },
   },
 });
