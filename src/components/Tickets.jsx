@@ -91,7 +91,7 @@ const Tickets = () => {
           <div className='stops'>
               {ticket.segments.map((segment, index) => <div className='route' key={index}>
               <div className='gr d-flex'>{t('ticket.transfersCount', { count: segment.stops.length })}</div>
-              <div className='bk d-flex'>{segment.stops.map((stop, index) => <span key={index}> {stop} </span>)}</div>
+              <div className='bk d-flex'>{segment.stops.join(', ')}</div>
               </div>)}
           </div>
           </div>)}
