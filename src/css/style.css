@@ -1,12 +1,8 @@
 :root {
   background-color: #F3F7FA;
-  --form-control-color: rebeccapurple;
   --form-control-disabled: #959495;
-  --black: #363839;
-  --lightgray: #9c9e9f;
-  --gray: #bdc1c6;
-  --white: #fff;
-  --green: #06842c;
+  --graphite: #4A4A4A;
+  --light-blue: #2196F3;
 }
 
 @font-face {
@@ -22,7 +18,7 @@
 }
 * {
   font-family: "Open Sans", sans-serif;
-  color: #4A4A4A;
+  color: var(--graphite);
   font-size: 12px;
   font-weight: 600;
 }
@@ -167,8 +163,8 @@
   height: 50px;
   width: 502px;
   border-radius: 5px;
-  background: #2196F3;
-  color: #fff;
+  background: var(--light-blue);
+  color: white;
   padding: 20px;
   text-transform: uppercase;
 }
@@ -209,7 +205,7 @@
   justify-content: center;
   height: 50px;
   width: 168px;
-  background: #fff;
+  background: white;
   text-transform: uppercase;
   border: 1px solid #DFE5EC;
 }
@@ -222,14 +218,14 @@
 }
 
 .top_group-filters-item input[type="radio"]:checked+label {
-  color: #fff;
-  border-color: #2196F3;
-  background-color: #2196F3;
+  color: white;
+  border-color: var(--light-blue);
+  background-color: var(--light-blue);
 }
 
 .top_group-filters-item label:hover {
-  color: #2196F3;
-  border-color: #2196F3;
+  color: var(--light-blue);
+  border-color: var(--light-blue);
   background-color: #e8f4ff;
   position: relative;
 }
@@ -248,12 +244,12 @@
   letter-spacing: 0.5px;
 }
 .bk {
-  color: #4A4A4A;
+  color: var(--graphite);
   font-size: 14px;
 }
 
 .price {
-  color: #2196F3;
+  color: var(--light-blue);
   font-size: 24px ;
 }
 
@@ -267,10 +263,8 @@
   background-color: white;
   width: 232px;
   height: 252px;
-  /* margin: 10px; */
   border-radius: 5px;
   box-sizing: border-box;
-  /* padding: 20px; */
   box-shadow: 1px 1px 5px #DFE5EC;
 }
 
@@ -295,7 +289,6 @@ input[type=checkbox] {
   position: relative;
   width: 20px;
   height: 20px;
-  /* color: #363839; */
   border: 1px solid #9ABBCE;
   border-radius: 2px;
   appearance: none;
@@ -312,15 +305,14 @@ input[type=checkbox]::before {
   width: 7px;
   height: 13px;
   border-style: solid;
-  border-color: #2196F3;
+  border-color: var(--light-blue);
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
   opacity: 0;
 }
 input[type=checkbox]:checked {
-  color: #2196F3;
-  border-color: #2196F3;
-  /* background: #2196F3; */
+  color: var(--light-blue);
+  border-color: var(--light-blue);
 }
 input[type=checkbox]:checked::before {
   opacity: 1;
