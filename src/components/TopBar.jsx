@@ -80,7 +80,7 @@ const TopBar = () => {
   return (
     <div className='top_group-filters'>
       {topFilters.filters
-        .map(({ name, description }, index) => <div className='top_group-filters-item' key={index}>
+        .map(({ id, name, description }) => <div className='top_group-filters-item' key={id}>
           <input id={name} className='btn-check' onChange={handleFilter} type="radio" name={name} value={name} checked={topFilters.currentFilter === name}/>
           <label htmlFor={name} className='unselectable'>{t(description)}</label>
           </div>)}

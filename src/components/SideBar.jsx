@@ -48,7 +48,9 @@ const SideBar = () => {
         <label htmlFor="all_transfer">{t('sideFilter.allTransfer')}</label>
       </div>
           {sideFilters.filters
-            .map(({ name, description, checked }, index) => <div className="side_group-filters-item d-flex" key={index}>
+            .map(({
+              id, name, description, checked,
+            }) => <div className="side_group-filters-item d-flex" key={id}>
               <input type="checkbox" id={name} name={name} value={name} onChange={handlerFilter} checked={checked}/>
               <label htmlFor={name}>{t(description)}</label>
           </div>)}

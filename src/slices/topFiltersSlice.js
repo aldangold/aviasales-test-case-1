@@ -4,9 +4,9 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   currentFilter: 'sort_by_price',
   filters: [
-    { id: 1, name: 'sort_by_price', description: 'topFilter.sortByPrice' },
-    { id: 2, name: 'sort_by_speed', description: 'topFilter.sortBySpeed' },
-    { id: 3, name: 'optimal_sort', description: 'topFilter.optimalSort' },
+    { id: 0, name: 'sort_by_price', description: 'topFilter.sortByPrice' },
+    { id: 1, name: 'sort_by_speed', description: 'topFilter.sortBySpeed' },
+    { id: 2, name: 'optimal_sort', description: 'topFilter.optimalSort' },
   ],
 };
 
