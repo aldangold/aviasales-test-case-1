@@ -8,8 +8,8 @@ import TopBar from './components/TopBar';
 
 const App = () => (
     <Container className="App">
-      <header className='header'><img src={logo} alt="logo" /></header>
-        <Container className='main'>
+      <header className='d-flex header'><img src={logo} alt="logo" /></header>
+        <Container className='d-flex main'>
         <SideBar/>
         <Container className='result col-12 col-md-9 flex-column'>
           <TopBar/>

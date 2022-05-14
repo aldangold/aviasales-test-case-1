@@ -46,13 +46,20 @@
 }
 
 .header {
-  text-align: center;
+  /* text-align: center; */
   width: 100%;
+  justify-content: space-around;
+  flex-direction: row;
+  height: 160px;
+  align-items: center;
 }
 
 .main {
-  display: flex;
-  padding: 50px;
+  /* display: flex;
+  padding: 50px; */
+  justify-content: space-around;
+  flex-direction: row;
+  padding-bottom: 20px;
 }
 
 .col-md-3 {
