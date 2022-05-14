@@ -41,8 +41,9 @@ const SideBar = () => {
   }, [sideFilters.currentFilters]);
 
   return (
-      <div className='side_group-filters col-12 col-md-3 position-sticky sticky-top d-flex flex-column'>
-      <div className='side_group-filters_header'>{t('sideFilter.title')}</div>
+    <div className='side_group-filters'>
+    <div className='side_group-filters_header'>{t('sideFilter.title')}</div>
+    <div className='side_group-filters-list'>
       <div className="side_group-filters-item d-flex">
         <input type="checkbox" id="all_transfer" name="all_transfer" value="all_transfer" onChange={handlerCheckAll} checked={allChecked}/>
         <label htmlFor="all_transfer">{t('sideFilter.allTransfer')}</label>
@@ -55,6 +56,7 @@ const SideBar = () => {
               <label htmlFor={name}>{t(description)}</label>
           </div>)}
       </div>
+    </div>
   );
 };
 
