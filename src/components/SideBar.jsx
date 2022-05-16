@@ -38,7 +38,7 @@ const SideBar = () => {
 
   useEffect(() => {
     filterOutTickets();
-  }, [sideFilters.currentFilters]);
+  }, [sideFilters.currentFilters.length]);
 
   return (
     <div className='side_group-filters'>
